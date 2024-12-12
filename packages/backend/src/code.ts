@@ -3,10 +3,10 @@ import {
   retrieveGenericSolidUIColors,
   retrieveGenericLinearGradients as retrieveGenericGradients,
 } from "./common/retrieveUI/retrieveColors";
-import { generateHTMLPreview, htmlMain } from "./html/htmlMain";
+import { generateHTMLPreview } from "./html/htmlMain";
 import { postConversionComplete, postEmptyMessage } from "./messaging";
 import { clearWarnings, warnings } from "./common/commonConversionWarnings";
-import { PluginSettings } from "types";
+import { Framework, PluginSettings } from "types";
 import { convertToCode } from "./common/retrieveUI/convertToCode";
 
 export const run = (settings: PluginSettings) => {
@@ -15,6 +15,9 @@ export const run = (settings: PluginSettings) => {
   const selection = figma.currentPage.selection;
 
   const convertedSelection = convertNodesToAltNodes(selection, null);
+
+  // TODDLE: Always use "Tailwind"
+  settings.framework = "Tailwind" as Framework;
 
   // ignore when nothing was selected
   // If the selection was empty, the converted selection will also be empty.
