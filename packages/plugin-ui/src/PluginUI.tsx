@@ -45,7 +45,7 @@ export const PluginUI = (props: PluginUIProps) => {
 
   return (
     <div className="flex flex-col h-full dark:text-white">
-      <div className="p-2 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-1">
+      {/* <div className="p-2 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-1">
         {frameworks.map((tab) => (
           <button
             key={`tab ${tab}`}
@@ -61,7 +61,7 @@ export const PluginUI = (props: PluginUIProps) => {
             {tab}
           </button>
         ))}
-      </div>
+      </div> */}
       <div
         style={{
           height: 1,
@@ -70,6 +70,25 @@ export const PluginUI = (props: PluginUIProps) => {
         }}
       ></div>
       <div className="flex flex-col h-full overflow-y-auto">
+        {/* TODDLE: Hide framework selector (always use Tailwind)
+        <div className="p-2 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-1">
+          {["HTML", "Tailwind", "Flutter", "SwiftUI"].map((tab) => (
+            <button
+              key={`tab ${tab}`}
+              className={`w-full p-1 text-sm ${
+                props.selectedFramework === tab
+                  ? "bg-green-500 dark:bg-green-600 text-white rounded-md font-semibold shadow-sm"
+                  : "bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 border focus:border-0 border-neutral-300 dark:border-neutral-600 rounded-md hover:bg-green-600 dark:hover:bg-green-800 dark:hover:border-green-800 hover:text-white dark:hover:text-white font-semibold shadow-sm"
+              }`}
+              onClick={() => {
+                props.setSelectedFramework(tab as FrameworkTypes);
+              }}
+            >
+              {tab}
+            </button>
+          ))}
+        </div> 
+        */}
         <div className="flex flex-col items-center px-4 py-2 gap-2 dark:bg-transparent">
           {isEmpty === false && props.htmlPreview && (
             <Preview htmlPreview={props.htmlPreview} />

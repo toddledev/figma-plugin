@@ -74,10 +74,10 @@ const CodePanel = (props: CodePanelProps) => {
   const handleButtonHover = () => setSyntaxHovered(true);
   const handleButtonLeave = () => setSyntaxHovered(false);
 
-  const selectableSettingsFiltered = selectPreferenceOptions.filter(
-    (preference) =>
-      preference.includedLanguages?.includes(props.selectedFramework),
-  );
+  // const selectableSettingsFiltered = selectPreferenceOptions.filter(
+  //   (preference) =>
+  //     preference.includedLanguages?.includes(props.selectedFramework),
+  // );
 
   return (
     <div className="w-full flex flex-col gap-2 mt-2">
@@ -101,7 +101,7 @@ const CodePanel = (props: CodePanelProps) => {
         )}
       </div>
 
-      {isEmpty === false && (
+      {/* {isEmpty === false && (
         <div className="flex gap-2 justify-center flex-col p-2 dark:bg-black dark:bg-opacity-25 bg-neutral-100 ring-1 ring-neutral-200 dark:ring-neutral-700 rounded-lg text-sm">
           <div className="flex gap-2 items-center flex-wrap">
             {preferenceOptions
@@ -179,7 +179,7 @@ const CodePanel = (props: CodePanelProps) => {
             </>
           )}
         </div>
-      )}
+      )} */}
 
       <div
         className={`rounded-lg ring-green-600 transition-all duratio overflow-clip ${

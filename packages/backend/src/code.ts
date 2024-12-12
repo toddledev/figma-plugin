@@ -14,7 +14,7 @@ import {
   postConversionStart,
   postEmptyMessage,
 } from "./messaging";
-import { PluginSettings } from "types";
+import { Framework, PluginSettings } from "types";
 import { convertToCode } from "./common/retrieveUI/convertToCode";
 
 export const run = async (settings: PluginSettings) => {
@@ -30,6 +30,9 @@ export const run = async (settings: PluginSettings) => {
   }
 
   const convertedSelection = convertNodesToAltNodes(selection, null);
+
+  // TODDLE: Always use "Tailwind"
+  settings.framework = "Tailwind" as Framework;
 
   // ignore when nothing was selected
   // If the selection was empty, the converted selection will also be empty.

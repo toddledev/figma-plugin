@@ -26,6 +26,14 @@ interface AppState {
 }
 
 const emptyPreview = { size: { width: 0, height: 0 }, content: "" };
+
+// Override to always use these export settings
+const applyToddlePreferences = (prefs: PluginSettings): PluginSettings => {
+  prefs.framework = "Tailwind";
+  prefs.jsx = false;
+  return prefs;
+};
+
 export default function App() {
   const [state, setState] = useState<AppState>({
     code: "",

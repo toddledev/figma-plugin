@@ -1,17 +1,17 @@
 import { tailwindCodeGenTextStyles } from "./../../../packages/backend/src/tailwind/tailwindMain";
 import {
   run,
-  flutterMain,
+  // flutterMain,
   tailwindMain,
-  swiftuiMain,
+  // swiftuiMain,
   convertIntoNodes,
   htmlMain,
   postSettingsChanged,
 } from "backend";
 import { retrieveGenericSolidUIColors } from "backend/src/common/retrieveUI/retrieveColors";
-import { flutterCodeGenTextStyles } from "backend/src/flutter/flutterMain";
+// import { flutterCodeGenTextStyles } from "backend/src/flutter/flutterMain";
 import { htmlCodeGenTextStyles } from "backend/src/html/htmlMain";
-import { swiftUICodeGenTextStyles } from "backend/src/swiftui/swiftuiMain";
+// import { swiftUICodeGenTextStyles } from "backend/src/swiftui/swiftuiMain";
 import { PluginSettings, SettingWillChangeMessage } from "types";
 
 let userPluginSettings: PluginSettings;
@@ -198,38 +198,38 @@ const codegenMode = async () => {
               language: "HTML",
             },
           ];
-        case "flutter":
-          return [
-            {
-              title: "Code",
-              code: flutterMain(convertedSelection, {
-                ...userPluginSettings,
-                flutterGenerationMode: "snippet",
-              }),
-              language: "SWIFT",
-            },
-            {
-              title: "Text Styles",
-              code: flutterCodeGenTextStyles(),
-              language: "SWIFT",
-            },
-          ];
-        case "swiftUI":
-          return [
-            {
-              title: "SwiftUI",
-              code: swiftuiMain(convertedSelection, {
-                ...userPluginSettings,
-                swiftUIGenerationMode: "snippet",
-              }),
-              language: "SWIFT",
-            },
-            {
-              title: "Text Styles",
-              code: swiftUICodeGenTextStyles(),
-              language: "SWIFT",
-            },
-          ];
+        // case "flutter":
+        //   return [
+        //     {
+        //       title: "Code",
+        //       code: flutterMain(convertedSelection, {
+        //         ...userPluginSettings,
+        //         flutterGenerationMode: "snippet",
+        //       }),
+        //       language: "SWIFT",
+        //     },
+        //     {
+        //       title: "Text Styles",
+        //       code: flutterCodeGenTextStyles(),
+        //       language: "SWIFT",
+        //     },
+        //   ];
+        // case "swiftUI":
+        //   return [
+        //     {
+        //       title: "SwiftUI",
+        //       code: swiftuiMain(convertedSelection, {
+        //         ...userPluginSettings,
+        //         swiftUIGenerationMode: "snippet",
+        //       }),
+        //       language: "SWIFT",
+        //     },
+        //     {
+        //       title: "Text Styles",
+        //       code: swiftUICodeGenTextStyles(),
+        //       language: "SWIFT",
+        //     },
+        //   ];
         default:
           break;
       }
