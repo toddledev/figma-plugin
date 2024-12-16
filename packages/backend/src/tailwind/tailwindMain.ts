@@ -8,6 +8,7 @@ import { AltNode, PluginSettings, TailwindSettings } from "types";
 import { addWarning } from "../common/commonConversionWarnings";
 import { renderAndAttachSVG } from "../altNodes/altNodeUtils";
 import { getVisibleNodes } from "../common/nodeVisibility";
+import { getToddleExportTag } from "../toddle";
 
 export let localTailwindSettings: PluginSettings;
 
@@ -28,6 +29,8 @@ export const tailwindMain = async (
   if (result.length > 0 && result.startsWith("\n")) {
     result = result.slice(1, result.length);
   }
+
+  result = `${getToddleExportTag()}\n${result}`;
 
   return result;
 };
