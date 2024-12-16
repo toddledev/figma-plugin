@@ -6,6 +6,7 @@ import { TailwindDefaultBuilder } from "./tailwindDefaultBuilder";
 import { PluginSettings } from "../code";
 import { tailwindAutoLayoutProps } from "./builderImpl/tailwindAutoLayout";
 import { commonSortChildrenWhenInferredAutoLayout } from "../common/commonChildrenOrder";
+import { getToddleExportTag } from "../toddle";
 
 export let localTailwindSettings: PluginSettings;
 
@@ -26,6 +27,8 @@ export const tailwindMain = (
   if (result.length > 0 && result.startsWith("\n")) {
     result = result.slice(1, result.length);
   }
+
+  result = `${getToddleExportTag()}\n${result}`;
 
   return result;
 };
