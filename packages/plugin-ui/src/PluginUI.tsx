@@ -54,6 +54,7 @@ export const PluginUI = (props: PluginUIProps) => {
         }}
       ></div>
       <div className="flex flex-col h-full overflow-y-auto">
+        {/* TODDLE: Hide framework selector (always use Tailwind)
         <div className="p-2 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-1">
           {["HTML", "Tailwind", "Flutter", "SwiftUI"].map((tab) => (
             <button
@@ -70,7 +71,8 @@ export const PluginUI = (props: PluginUIProps) => {
               {tab}
             </button>
           ))}
-        </div>
+        </div> 
+        */}
         <div className="flex flex-col items-center px-4 py-2 gap-2 dark:bg-transparent">
           {props.htmlPreview && (
             <Preview
