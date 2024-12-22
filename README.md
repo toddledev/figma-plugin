@@ -1,5 +1,3 @@
-<!-- [![Figma to Code](assets/git_preview.png)](https://www.figma.com/community/plugin/842128343887142055) -->
-
 # Toddle Figma Plugin
 
 <!-- <p align="center"> -->
