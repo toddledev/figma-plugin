@@ -1,21 +1,10 @@
-<!-- <p align="center"><img src="assets/icon_256.png" alt="Figma to Code" height="128px"></p> -->
+# Toddle Figma Plugin
 
-[![Figma to Code](assets/git_preview.png)](https://www.figma.com/community/plugin/842128343887142055)
+<!-- <p align="center"> -->
+<!-- <a href="https://www.figma.com/community/plugin/842128343887142055"><img src="assets/badge.png" height="60"/></a> -->
+<!-- </p> -->
 
-# Figma to Code
-
-<p align="center">
-<a href="https://github.com/bernaferrari/FigmaToCode/actions/"><img src="https://github.com/bernaferrari/FigmaToCode/workflows/CI/badge.svg"/></a>
-<a href="https://codecov.io/gh/bernaferrari/FigmaToCode"><img src="https://codecov.io/gh/bernaferrari/FigmaToCode/branch/master/graph/badge.svg" /></a>
-<a href="http://twitter.com/bernaferrari">
-<img src="https://img.shields.io/badge/Twitter-@bernaferrari-brightgreen.svg?style=flat" alt="Twitter"/></a>
-</p><p align="center">
-<a href="https://www.figma.com/community/plugin/842128343887142055"><img src="assets/badge.png" height="60"/></a>
-</p>
-
-Most _design to code_ plugins are bad, some are even paid. This project aims to raise the bar by generating **responsive** layouts in [Tailwind](https://tailwindcss.com/), [Flutter](https://flutter.github.io/) and [SwiftUI](https://developer.apple.com/xcode/swiftui/). The plan is to eventually add support for [Jetpack Compose](https://developer.android.com/jetpack/compose) and possibly standard HTML or other frameworks like [React Native](https://reactnative.dev/), [Bootstrap](https://getbootstrap.com/) or [Fluent](https://www.microsoft.com/design/fluent/). Feedback, ideas and partnerships are appreciated!
-
-![Gif showing the conversion](assets/lossy_gif.gif)
+Export your Figma designs as Tailwind-flavoured HTML and paste it into [Toddle](https://toddle.dev) to get your project started.
 
 ## How it works
 
@@ -33,22 +22,17 @@ When finding the unknown (a `Group` or `Frame` with more than one child and no v
 
 **Tip**: Instead of selecting the whole page, you can also select individual items. This can be useful for both debugging and componentization. For example: you can use the plugin to generate the code of a single element and then replicate it using a for-loop.
 
-### Todo
+### Limitations
 
-- Vectors (tricky in HTML, unsupported in Flutter)
-- Images (they are local, how to support them?)
-- Line/Star/Polygon (todo. Rectangle and Ellipse were prioritized and are more common)
-- The source code is fully commented and there are more than 30 "todo"s there
+With the limitless variety and combinations of features in Figma designs, it's currently not possible to replicate every case. Here are some known unsupported features:
 
-### Tailwind limitations
+- Vector illustrations / paths
+- Images
+- Line/Star/Polygon shapes
+
+#### Tailwind limitations
 
 - **Width:** Tailwind has a maximum width of 384px. If an item passes this, the width will be set to `w-full` (unless it is already relative like `w-1/2`, `w-1/3`, etc). This is usually a feature, but be careful: if most layers in your project are larger than 384px, the plugin's result might be less than optimal.
-
-### Flutter limits and ideas
-
-- **Stack:** in some simpler cases, a `Stack` could be replaced with a `Container` and a `BoxDecoration`. Discover those cases and optimize them.
-- **Material Styles**: text could be matched to existing Material styles (like outputting `Headline6` when text size is 20).
-- **Identify Buttons**: the plugin could identify specific buttons and output them instead of always using `Container` or `Material`.
 
 ## How to build the project
 
@@ -87,9 +71,3 @@ The plugin is built using Turbo which in turn builds the internal packages.
 When running the `dev` task, you can open `http://localhost:3000` to see the debug version of the UI.
 
 <img width="600" alt="Screenshot 2024-12-13 at 16 26 43" src="https://github.com/user-attachments/assets/427fb066-70e1-47bd-8718-51f7f4d83e35" />
-
-## Issues
-
-The Figma file for this README and icon is also open and welcome to changes! [Check it here.](https://www.figma.com/file/8buWpm6Mpq4yK9MhbkcdJB/Figma-to-Code)
-
-I took decisions thinking about how it would benefit the majority of people, but I can (and probably will!) be wrong many times. Found a bug? Have an idea for an improvement? Feel free to [add an issue](../../issues) or email me. Pull requests are also more than welcome.
