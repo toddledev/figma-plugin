@@ -20,6 +20,14 @@ interface AppState {
   gradients: { cssPreview: string; exportedValue: string }[];
 }
 
+// Override to always use these export settings
+const applyToddlePreferences = (prefs:PluginSettings):PluginSettings =>  {
+  prefs.framework = "Tailwind";
+  prefs.jsx =false;
+  return prefs;
+}
+
+
 export default function App() {
   const [state, setState] = useState<AppState>({
     code: "",
@@ -40,6 +48,12 @@ export default function App() {
     window.onmessage = (event: MessageEvent) => {
       const message = event.data.pluginMessage;
       console.log("[ui] message received:", message);
+      
+      // Override to always use these export settings
+      const prefs = message.type === "code" ? message.preferences : message.data;
+      prefs.framework = "Tailwind";
+      prefs.jsx = false;
+
       switch (message.type) {
         case "code":
           setState((prevState) => ({
@@ -48,15 +62,15 @@ export default function App() {
             htmlPreview: message.htmlPreview,
             colors: message.colors,
             gradients: message.gradients,
-            preferences: message.preferences,
-            selectedFramework: message.preferences.framework,
+            preferences: prefs,
+            selectedFramework: prefs.framework,
           }));
           break;
-        case "pluginSettingChanged":
+          case "pluginSettingChanged":
           setState((prevState) => ({
             ...prevState,
-            preferences: message.data,
-            selectedFramework: message.data.framework,
+            preferences: prefs,
+            selectedFramework: prefs.framework,
           }));
           break;
         case "empty":

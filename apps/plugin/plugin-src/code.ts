@@ -1,17 +1,17 @@
 import { tailwindCodeGenTextStyles } from "./../../../packages/backend/src/tailwind/tailwindMain";
 import {
   run,
-  flutterMain,
+  // flutterMain,
   tailwindMain,
-  swiftuiMain,
+  // swiftuiMain,
   convertIntoNodes,
   htmlMain,
   PluginSettings,
 } from "backend";
 import { retrieveGenericSolidUIColors } from "backend/src/common/retrieveUI/retrieveColors";
-import { flutterCodeGenTextStyles } from "backend/src/flutter/flutterMain";
+// import { flutterCodeGenTextStyles } from "backend/src/flutter/flutterMain";
 import { htmlCodeGenTextStyles } from "backend/src/html/htmlMain";
-import { swiftUICodeGenTextStyles } from "backend/src/swiftui/swiftuiMain";
+// import { swiftUICodeGenTextStyles } from "backend/src/swiftui/swiftuiMain";
 
 let userPluginSettings: PluginSettings;
 
@@ -189,6 +189,7 @@ const codegenMode = async () => {
             language: "HTML",
           },
         ];
+      /*
       case "flutter":
         return [
           {
@@ -221,6 +222,7 @@ const codegenMode = async () => {
             language: "SWIFT",
           },
         ];
+        */
       default:
         break;
     }

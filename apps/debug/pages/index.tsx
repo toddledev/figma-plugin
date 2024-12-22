@@ -3,7 +3,7 @@ import * as React from "react";
 
 export default function Web() {
   const [selectedFramework, setSelectedFramework] =
-    React.useState<FrameworkTypes>("HTML");
+    React.useState<FrameworkTypes>("Tailwind");
 
   return (
     <div className="flex flex-col p-8 space-y-2">
