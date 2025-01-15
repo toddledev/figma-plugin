@@ -184,6 +184,7 @@ const codegenMode = async () => {
         //    },
         //   ];
         /*
+
       case "flutter":
         return [
           {
