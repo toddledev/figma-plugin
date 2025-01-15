@@ -1,6 +1,6 @@
 import { LocalCodegenPreferenceOptions, SelectPreferenceOptions } from "types";
 
-// TODDLE: By commenting out "Tailwind" from includedLanguages, this will essentially
+// TODDLE: By commenting out the selected framework from includedLanguages, this will essentially
 // hide the button from the UI without removing the functionality and default settings.
 export const preferenceOptions: LocalCodegenPreferenceOptions[] = [
   {
@@ -10,8 +10,8 @@ export const preferenceOptions: LocalCodegenPreferenceOptions[] = [
     description: 'Render "class" attributes as "className"',
     isDefault: false,
     includedLanguages: [
-      "HTML",
-      //"Tailwind"
+      // "HTML",
+      "Tailwind",
     ],
   },
   {
@@ -19,10 +19,10 @@ export const preferenceOptions: LocalCodegenPreferenceOptions[] = [
     propertyName: "optimizeLayout",
     label: "Optimize layout",
     description: "Attempt to auto-layout suitable element groups",
-    isDefault: true,
+    isDefault: false,
     includedLanguages: [
-      "HTML",
-      // "Tailwind",
+      // "HTML",
+      "Tailwind",
       "Flutter",
       "SwiftUI",
     ],
@@ -34,8 +34,8 @@ export const preferenceOptions: LocalCodegenPreferenceOptions[] = [
     description: "Include layer names in classes",
     isDefault: true,
     includedLanguages: [
-      "HTML",
-      // "Tailwind"
+      // "HTML",
+      "Tailwind",
     ],
   },
   {
@@ -44,9 +44,7 @@ export const preferenceOptions: LocalCodegenPreferenceOptions[] = [
     label: "Round values",
     description: "Round pixel values to nearest Tailwind sizes",
     isDefault: false,
-    includedLanguages: [
-      // "Tailwind"
-    ],
+    includedLanguages: ["Tailwind"],
   },
   {
     itemType: "individual_select",
@@ -54,9 +52,7 @@ export const preferenceOptions: LocalCodegenPreferenceOptions[] = [
     label: "Round colors",
     description: "Round color values to nearest Tailwind colors",
     isDefault: false,
-    includedLanguages: [
-      // "Tailwind"
-    ],
+    includedLanguages: ["Tailwind"],
   },
   {
     itemType: "individual_select",
@@ -64,9 +60,7 @@ export const preferenceOptions: LocalCodegenPreferenceOptions[] = [
     label: "Custom colors",
     description: "Use color variable names as custom color names",
     isDefault: false,
-    includedLanguages: [
-      // "Tailwind"
-    ],
+    includedLanguages: ["Tailwind"],
   },
   // Add your preferences data here
 ];

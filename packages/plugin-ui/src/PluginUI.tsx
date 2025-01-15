@@ -1,4 +1,3 @@
-import { useState } from "react";
 import copy from "copy-to-clipboard";
 import Preview from "./components/Preview";
 import GradientsPanel from "./components/GradientsPanel";
@@ -30,7 +29,7 @@ type PluginUIProps = {
   gradients: LinearGradientConversion[];
 };
 
-const frameworks: Framework[] = ["HTML", "Tailwind", "Flutter", "SwiftUI"];
+// const frameworks: Framework[] = ["HTML", "Tailwind", "Flutter", "SwiftUI"];
 
 export const PluginUI = (props: PluginUIProps) => {
   const isEmpty = props.code === "";
