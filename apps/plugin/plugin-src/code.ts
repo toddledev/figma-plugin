@@ -229,7 +229,6 @@ const codegenMode = async () => {
         //       code: swiftUICodeGenTextStyles(),
         //       language: "SWIFT",
         //     },
-        //   ];
         default:
           break;
       }
