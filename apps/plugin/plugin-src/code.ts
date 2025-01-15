@@ -1,14 +1,14 @@
-import { tailwindCodeGenTextStyles } from "./../../../packages/backend/src/tailwind/tailwindMain";
+// import { tailwindCodeGenTextStyles } from "./../../../packages/backend/src/tailwind/tailwindMain";
 import {
   run,
   // flutterMain,
-  tailwindMain,
+  // tailwindMain,
   // swiftuiMain,
   convertIntoNodes,
   htmlMain,
   postSettingsChanged,
 } from "backend";
-import { retrieveGenericSolidUIColors } from "backend/src/common/retrieveUI/retrieveColors";
+// import { retrieveGenericSolidUIColors } from "backend/src/common/retrieveUI/retrieveColors";
 // import { flutterCodeGenTextStyles } from "backend/src/flutter/flutterMain";
 import { htmlCodeGenTextStyles } from "backend/src/html/htmlMain";
 // import { swiftUICodeGenTextStyles } from "backend/src/swiftui/swiftuiMain";
@@ -19,7 +19,7 @@ let userPluginSettings: PluginSettings;
 export const defaultPluginSettings: PluginSettings = {
   framework: "HTML",
   jsx: false,
-  optimizeLayout: true,
+  optimizeLayout: false,
   showLayerNames: false,
   inlineStyle: true,
   responsiveRoot: false,
@@ -143,61 +143,61 @@ const codegenMode = async () => {
               language: "HTML",
             },
           ];
-        case "html_jsx":
-          return [
-            {
-              title: "Code",
-              code: await htmlMain(
-                convertedSelection,
-                { ...userPluginSettings, jsx: true },
-                true,
-              ),
-              language: "HTML",
-            },
-            {
-              title: "Text Styles",
-              code: htmlCodeGenTextStyles(userPluginSettings),
-              language: "HTML",
-            },
-          ];
-        case "tailwind":
-        case "tailwind_jsx":
-          return [
-            {
-              title: "Code",
-              code: await tailwindMain(convertedSelection, {
-                ...userPluginSettings,
-                jsx: language === "tailwind_jsx",
-              }),
-              language: "HTML",
-            },
-            // {
-            //   title: "Style",
-            //   code: tailwindMain(convertedSelection, defaultPluginSettings),
-            //   language: "HTML",
-            // },
-            {
-              title: "Tailwind Colors",
-              code: retrieveGenericSolidUIColors("Tailwind")
-                .map((d) => {
-                  let str = `${d.hex};`;
-                  if (d.colorName !== d.hex) {
-                    str += ` // ${d.colorName}`;
-                  }
-                  if (d.meta) {
-                    str += ` (${d.meta})`;
-                  }
-                  return str;
-                })
-                .join("\n"),
-              language: "JAVASCRIPT",
-            },
-            {
-              title: "Text Styles",
-              code: tailwindCodeGenTextStyles(),
-              language: "HTML",
-            },
-          ];
+        // case "html_jsx":
+        //   return [
+        //     {
+        //       title: "Code",
+        //       code: await htmlMain(
+        //         convertedSelection,
+        //         { ...userPluginSettings, jsx: true },
+        //         true,
+        //       ),
+        //       language: "HTML",
+        //     },
+        //     {
+        //       title: "Text Styles",
+        //       code: htmlCodeGenTextStyles(userPluginSettings),
+        //       language: "HTML",
+        //     },
+        //   ];
+        // case "tailwind":
+        // case "tailwind_jsx":
+        //   return [
+        //     {
+        //       title: "Code",
+        //       code: await tailwindMain(convertedSelection, {
+        //         ...userPluginSettings,
+        //         jsx: language === "tailwind_jsx",
+        //       }),
+        //       language: "HTML",
+        //     },
+        //     // {
+        //     //   title: "Style",
+        //     //   code: tailwindMain(convertedSelection, defaultPluginSettings),
+        //     //   language: "HTML",
+        //     // },
+        //     {
+        //       title: "Tailwind Colors",
+        //       code: retrieveGenericSolidUIColors("Tailwind")
+        //         .map((d) => {
+        //           let str = `${d.hex};`;
+        //           if (d.colorName !== d.hex) {
+        //             str += ` // ${d.colorName}`;
+        //           }
+        //           if (d.meta) {
+        //             str += ` (${d.meta})`;
+        //           }
+        //           return str;
+        //         })
+        //         .join("\n"),
+        //       language: "JAVASCRIPT",
+        //     },
+        //     {
+        //       title: "Text Styles",
+        //       code: tailwindCodeGenTextStyles(),
+        //       language: "HTML",
+        //     },
+        //   ];
         // case "flutter":
         //   return [
         //     {

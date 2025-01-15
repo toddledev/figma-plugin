@@ -31,8 +31,10 @@ export const run = async (settings: PluginSettings) => {
 
   const convertedSelection = convertNodesToAltNodes(selection, null);
 
-  // TODDLE: Always use "Tailwind"
-  settings.framework = "Tailwind" as Framework;
+  // TODDLE: Always use "HTML"
+  settings.framework = "HTML" as Framework;
+  // TODDLE: Don't use optimizeLayout
+  settings.optimizeLayout = false;
 
   // ignore when nothing was selected
   // If the selection was empty, the converted selection will also be empty.

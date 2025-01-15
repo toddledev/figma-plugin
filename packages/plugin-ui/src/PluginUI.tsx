@@ -34,7 +34,7 @@ type PluginUIProps = {
   isLoading: boolean;
 };
 
-const frameworks: Framework[] = ["HTML", "Tailwind", "Flutter", "SwiftUI"];
+// const frameworks: Framework[] = ["HTML", "Tailwind", "Flutter", "SwiftUI"];
 
 export const PluginUI = (props: PluginUIProps) => {
   if (props.isLoading) return <Loading />;
