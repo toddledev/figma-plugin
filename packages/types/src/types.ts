@@ -65,6 +65,10 @@ export type ErrorMessage = Message & {
   type: "error";
   error: string;
 };
+export type URLRequestMessage = Message & {
+  type: "urlRequest";
+  url: string;
+};
 
 // Nodes
 export type ParentNode = BaseNode & ChildrenMixin;

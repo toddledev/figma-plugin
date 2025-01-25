@@ -1,4 +1,9 @@
-import { Message, SettingWillChangeMessage, UIMessage } from "types";
+import {
+  Message,
+  SettingWillChangeMessage,
+  UIMessage,
+  URLRequestMessage,
+} from "types";
 
 if (!parent || !parent.postMessage) {
   throw new Error("parent.postMessage() is not defined");
@@ -20,6 +25,19 @@ export const postUISettingsChangingMessage = <T>(
     type: "pluginSettingWillChange",
     key,
     value,
+  };
+  postUIMessage(message, options);
+};
+
+export const postUrlRequest = (
+  url: string,
+  options: WindowPostMessageOptions = {
+    targetOrigin: "*",
+  },
+) => {
+  const message: URLRequestMessage = {
+    type: "urlRequest",
+    url,
   };
   postUIMessage(message, options);
 };

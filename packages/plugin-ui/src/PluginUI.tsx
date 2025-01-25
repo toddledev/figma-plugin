@@ -1,8 +1,8 @@
 import copy from "copy-to-clipboard";
 import Preview from "./components/Preview";
-import GradientsPanel from "./components/GradientsPanel";
-import ColorsPanel from "./components/ColorsPanel";
-import CodePanel from "./components/CodePanel";
+// import GradientsPanel from "./components/GradientsPanel";
+// import ColorsPanel from "./components/ColorsPanel";
+// import CodePanel from "./components/CodePanel";
 import WarningIcon from "./components/WarningIcon";
 import {
   Framework,
@@ -12,10 +12,15 @@ import {
   SolidColorConversion,
   Warning,
 } from "types";
-import {
-  preferenceOptions,
-  selectPreferenceOptions,
-} from "./codegenPreferenceOptions";
+// import {
+//   preferenceOptions,
+//   selectPreferenceOptions,
+// } from "./codegenPreferenceOptions";
+import ToddleLogo from "./components/ToddleLogo";
+import OrderedListNumber from "./components/OrderedListNumber";
+import LinkIcon from "./components/LinkIcon";
+import Button from "./components/Button";
+import Instruction from "./components/Instruction";
 import Loading from "./components/Loading";
 
 type PluginUIProps = {
@@ -32,20 +37,92 @@ type PluginUIProps = {
   colors: SolidColorConversion[];
   gradients: LinearGradientConversion[];
   isLoading: boolean;
+  urlRequestCallback: (url: string) => void;
 };
 
 // const frameworks: Framework[] = ["HTML", "Tailwind", "Flutter", "SwiftUI"];
 
 export const PluginUI = (props: PluginUIProps) => {
   if (props.isLoading) return <Loading />;
-
-  const isEmpty = props.code === "";
+  const { urlRequestCallback, code } = props;
+  const isEmpty = code === "";
 
   const warnings = props.warnings ?? [];
 
   return (
-    <div className="flex flex-col h-full dark:text-white">
-      {/* <div className="p-2 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-1">
+    <div
+      data-layer="preview"
+      className="Preview bg-neutral-900 flex-col justify-start items-center flex"
+    >
+      <div
+        data-layer="Top bar"
+        className="TopBar self-stretch p-6 justify-between items-center inline-flex"
+      >
+        <div data-svg-wrapper data-layer="logo" className="Logo relative">
+          <ToddleLogo />
+        </div>
+        <Button onClick={() => urlRequestCallback("https://toddle.dev/signup")}>
+          Sign up
+        </Button>
+      </div>
+      <div
+        data-layer="instructions"
+        className="Instructions self-stretch h-[200px] p-6 border-t border-b border-neutral-800 flex-col justify-start items-start gap-4 flex"
+      >
+        {[
+          "Select frame or element to copy",
+          "Click “Copy Figma design”",
+          "Paste the code into toddle",
+        ].map((text, i) => (
+          <Instruction key={text} i={i + 1}>
+            {text}
+          </Instruction>
+        ))}
+        <Button
+          icon={LinkIcon}
+          onClick={() => urlRequestCallback("https://youtube.com")}
+        >
+          Watch tutorial on YouTube
+        </Button>
+      </div>
+      <div
+        data-layer="HTML preview"
+        className="HtmlPreview w-[400px] h-[325px] p-6 flex-col justify-center items-center gap-2.5 flex"
+      >
+        {isEmpty === false && props.htmlPreview ? (
+          <Preview htmlPreview={props.htmlPreview} />
+        ) : (
+          <p className="text-neutral-200">Select frame or element to copy</p>
+        )}
+        {/* {warnings.length > 0 && (
+            <div className="flex flex-col bg-yellow-400 text-black  dark:bg-yellow-500 dark:text-black p-3 w-full">
+              <div className="flex flex-row gap-1">
+                <div style={{ transform: "translate(2px, 0px) scale(80%)" }}>
+                  <WarningIcon />
+                </div>
+                <h3 className="text-base font-bold">Warnings:</h3>
+              </div>
+              <ul className="list-disc pl-6">
+                {warnings.map((message: string) => (
+                  <li className="list-item">
+                    <em className="italic text-sm">{message}</em>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )} */}
+      </div>
+      <div
+        data-layer="footer"
+        className="footer self-stretch h-[114px] p-6 flex-col justify-start items-start gap-2.5 flex"
+      >
+        <Button onClick={() => {}} style="alt">
+          Copy Figma design
+        </Button>
+      </div>
+
+      {/* TODDLE: hide frameworks selector
+      <div className="p-2 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-1">
         {frameworks.map((tab) => (
           <button
             key={`tab ${tab}`}
@@ -61,16 +138,17 @@ export const PluginUI = (props: PluginUIProps) => {
             {tab}
           </button>
         ))}
-      </div> */}
-      <div
+      </div> 
+      */}
+      {/* <div
         style={{
           height: 1,
           width: "100%",
           backgroundColor: "rgba(255,255,255,0.12)",
         }}
-      ></div>
-      <div className="flex flex-col h-full overflow-y-auto">
-        {/* TODDLE: Hide framework selector (always use Tailwind)
+      ></div> */}
+      {/* <div className="flex flex-col h-full overflow-y-auto"> */}
+      {/* TODDLE: Hide framework selector (always use Tailwind)
         <div className="p-2 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-1">
           {["HTML", "Tailwind", "Flutter", "SwiftUI"].map((tab) => (
             <button
@@ -89,7 +167,7 @@ export const PluginUI = (props: PluginUIProps) => {
           ))}
         </div> 
         */}
-        <div className="flex flex-col items-center px-4 py-2 gap-2 dark:bg-transparent">
+      {/* <div className="flex flex-col items-center px-4 py-2 gap-2 dark:bg-transparent">
           {isEmpty === false && props.htmlPreview && (
             <Preview htmlPreview={props.htmlPreview} />
           )}
@@ -109,16 +187,17 @@ export const PluginUI = (props: PluginUIProps) => {
                 ))}
               </ul>
             </div>
-          )}
-          <CodePanel
+          )} */}
+      {/* <CodePanel
             code={props.code}
             selectedFramework={props.selectedFramework}
             preferenceOptions={preferenceOptions}
             selectPreferenceOptions={selectPreferenceOptions}
             settings={props.settings}
             onPreferenceChanged={props.onPreferenceChanged}
-          />
+          /> */}
 
+      {/* TODDLE: Hide colors panel
           {props.colors.length > 0 && (
             <ColorsPanel
               colors={props.colors}
@@ -126,8 +205,10 @@ export const PluginUI = (props: PluginUIProps) => {
                 copy(value);
               }}
             />
-          )}
+          )} 
+*/}
 
+      {/* TODDLE: Hide gradients panel
           {props.gradients.length > 0 && (
             <GradientsPanel
               gradients={props.gradients}
@@ -135,9 +216,10 @@ export const PluginUI = (props: PluginUIProps) => {
                 copy(value);
               }}
             />
-          )}
-        </div>
-      </div>
+          )} 
+*/}
+      {/* </div> */}
+      {/* </div> */}
     </div>
   );
 };

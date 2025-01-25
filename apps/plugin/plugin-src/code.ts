@@ -12,9 +12,16 @@ import {
 // import { flutterCodeGenTextStyles } from "backend/src/flutter/flutterMain";
 import { htmlCodeGenTextStyles } from "backend/src/html/htmlMain";
 // import { swiftUICodeGenTextStyles } from "backend/src/swiftui/swiftuiMain";
-import { PluginSettings, SettingWillChangeMessage } from "types";
+import {
+  PluginSettings,
+  SettingWillChangeMessage,
+  URLRequestMessage,
+} from "types";
 
 let userPluginSettings: PluginSettings;
+
+const UI_WIDTH = 384;
+const UI_HEIGHT = 740;
 
 export const defaultPluginSettings: PluginSettings = {
   framework: "HTML",
@@ -87,7 +94,11 @@ const safeRun = async (settings: PluginSettings) => {
 };
 
 const standardMode = async () => {
-  figma.showUI(__html__, { width: 450, height: 700, themeColors: true });
+  figma.showUI(__html__, {
+    width: UI_WIDTH,
+    height: UI_HEIGHT,
+    themeColors: false,
+  });
   await initSettings();
 
   // Listen for selection changes
@@ -112,6 +123,12 @@ const standardMode = async () => {
       (userPluginSettings as any)[key] = value;
       figma.clientStorage.setAsync("userPluginSettings", userPluginSettings);
       safeRun(userPluginSettings);
+    }
+
+    if (msg.type === "urlRequest") {
+      const { url } = msg as URLRequestMessage;
+      figma.notify("Opening URL...");
+      figma.openExternal(url);
     }
   };
 };
@@ -138,11 +155,11 @@ const codegenMode = async () => {
               language: "HTML",
             },
             {
-              title: "Text Styles",
+              title: `Text Styles`,
               code: htmlCodeGenTextStyles(userPluginSettings),
               language: "HTML",
             },
-          ];
+          ] as CodegenResult[];
         // case "html_jsx":
         //   return [
         //     {
