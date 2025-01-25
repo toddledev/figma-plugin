@@ -12,9 +12,16 @@ import {
 // import { flutterCodeGenTextStyles } from "backend/src/flutter/flutterMain";
 import { htmlCodeGenTextStyles } from "backend/src/html/htmlMain";
 // import { swiftUICodeGenTextStyles } from "backend/src/swiftui/swiftuiMain";
-import { PluginSettings, SettingWillChangeMessage } from "types";
+import {
+  PluginSettings,
+  SettingWillChangeMessage,
+  URLRequestMessage,
+} from "types";
 
 let userPluginSettings: PluginSettings;
+
+const UI_WIDTH = 384;
+const UI_HEIGHT = 740;
 
 export const defaultPluginSettings: PluginSettings = {
   framework: "HTML",
@@ -76,7 +83,11 @@ const safeRun = (settings: PluginSettings) => {
 };
 
 const standardMode = async () => {
-  figma.showUI(__html__, { width: 450, height: 700, themeColors: true });
+  figma.showUI(__html__, {
+    width: UI_WIDTH,
+    height: UI_HEIGHT,
+    themeColors: false,
+  });
   await initSettings();
 
   // Listen for selection changes
@@ -98,6 +109,12 @@ const standardMode = async () => {
       figma.clientStorage.setAsync("userPluginSettings", userPluginSettings);
       safeRun(userPluginSettings);
     }
+
+    if (msg.type === "urlRequest") {
+      const { url } = msg as URLRequestMessage;
+      figma.notify("Opening URL...");
+      figma.openExternal(url);
+    }
   };
 };
 
@@ -105,86 +122,83 @@ const codegenMode = async () => {
   // figma.showUI(__html__, { visible: false });
   await getUserSettings();
 
-  figma.codegen.on(
-    "generate",
-    async ({ language, node }: CodegenEvent): Promise<CodegenResult[]> => {
-      const convertedSelection = convertIntoNodes([node], null);
+  figma.codegen.on("generate", ({ language, node }: CodegenEvent) => {
+    const convertedSelection = convertIntoNodes([node], null);
 
-      switch (language) {
-        case "html":
-          return [
-            {
-              title: "Code",
-              code: await htmlMain(
-                convertedSelection,
-                { ...userPluginSettings, jsx: false },
-                true,
-              ),
-              language: "HTML",
-            },
-            {
-              title: "Text Styles",
-              code: htmlCodeGenTextStyles(userPluginSettings),
-              language: "HTML",
-            },
-          ];
-        // case "html_jsx":
-        //   return [
-        //     {
-        //       title: "Code",
-        //       code: await htmlMain(
-        //         convertedSelection,
-        //         { ...userPluginSettings, jsx: true },
-        //         true,
-        //       ),
-        //       language: "HTML",
-        //     },
-        //     {
-        //       title: "Text Styles",
-        //       code: htmlCodeGenTextStyles(userPluginSettings),
-        //       language: "HTML",
-        //     },
-        //   ];
-        // case "tailwind":
-        // case "tailwind_jsx":
-        //   return [
-        //     {
-        //       title: "Code",
-        //       code: await tailwindMain(convertedSelection, {
-        //         ...userPluginSettings,
-        //         jsx: language === "tailwind_jsx",
-        //       }),
-        //       language: "HTML",
-        //     },
-        //     // {
-        //     //   title: "Style",
-        //     //   code: tailwindMain(convertedSelection, defaultPluginSettings),
-        //     //   language: "HTML",
-        //     // },
-        //     {
-        //       title: "Tailwind Colors",
-        //       code: retrieveGenericSolidUIColors("Tailwind")
-        //         .map((d) => {
-        //           let str = `${d.hex};`;
-        //           if (d.colorName !== d.hex) {
-        //             str += ` // ${d.colorName}`;
-        //           }
-        //           if (d.meta) {
-        //             str += ` (${d.meta})`;
-        //           }
-        //           return str;
-        //         })
-        //         .join("\n"),
-        //       language: "JAVASCRIPT",
-        //     },
-        //    {
-        //      title: "Text Styles",
-        //      code: tailwindCodeGenTextStyles(),
-        //      language: "HTML",
-        //    },
-        //   ];
-        /*
-
+    switch (language) {
+      case "html":
+        return [
+          {
+            title: `Code`,
+            code: htmlMain(
+              convertedSelection,
+              { ...userPluginSettings, jsx: false },
+              true,
+            ),
+            language: "HTML",
+          },
+          {
+            title: `Text Styles`,
+            code: htmlCodeGenTextStyles(userPluginSettings),
+            language: "HTML",
+          },
+        ] as CodegenResult[];
+      // case "html_jsx":
+      //   return [
+      //     {
+      //       title: `Code`,
+      //       code: htmlMain(
+      //         convertedSelection,
+      //         { ...userPluginSettings, jsx: true },
+      //         true,
+      //       ),
+      //       language: "HTML",
+      //     },
+      //     {
+      //       title: `Text Styles`,
+      //       code: htmlCodeGenTextStyles(userPluginSettings),
+      //       language: "HTML",
+      //     },
+      //   ];
+      // case "tailwind":
+      // case "tailwind_jsx":
+      //   return [
+      //     // {
+      //     //   title: `Code`,
+      //     //   code: tailwindMain(convertedSelection, {
+      //     //     ...userPluginSettings,
+      //     //     jsx: language === "tailwind_jsx",
+      //     //   }),
+      //     //   language: "HTML",
+      //     // },
+      //     // {
+      //     //   title: `Style`,
+      //     //   code: tailwindMain(convertedSelection, defaultPluginSettings),
+      //     //   language: "HTML",
+      //     // },
+      //     {
+      //       title: `Tailwind Colors`,
+      //       code: retrieveGenericSolidUIColors("Tailwind")
+      //         .map((d) => {
+      //           let str = `${d.hex};`;
+      //           if (d.colorName !== d.hex) {
+      //             str += ` // ${d.colorName}`;
+      //           }
+      //           if (d.meta) {
+      //             str += ` (${d.meta})`;
+      //           }
+      //           return str;
+      //         })
+      //         .join("\n"),
+      //       language: "JAVASCRIPT",
+      //     },
+      //     {
+      //       title: `Text Styles`,
+      //       code: tailwindCodeGenTextStyles(),
+      //       language: "HTML",
+      //     },
+      //   ];
+      /*
       case "flutter":
         return [
           {
@@ -218,14 +232,13 @@ const codegenMode = async () => {
           },
         ];
         */
-        default:
-          break;
-      }
+      default:
+        break;
+    }
 
-      const blocks: CodegenResult[] = [];
-      return blocks;
-    },
-  );
+    const blocks: CodegenResult[] = [];
+    return blocks;
+  });
 };
 
 switch (figma.mode) {

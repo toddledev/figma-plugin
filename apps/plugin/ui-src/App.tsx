@@ -12,7 +12,7 @@ import {
   SettingsChangedMessage,
   Warning,
 } from "types";
-import { postUISettingsChangingMessage } from "./messaging";
+import { postUISettingsChangingMessage, postUrlRequest } from "./messaging";
 
 interface AppState {
   code: string;
@@ -139,8 +139,11 @@ export default function App() {
   };
   console.log("state.code", state.code.slice(0, 25));
 
+  const handleUrlRequest = postUrlRequest;
+
   return (
-    <div className={`${figmaColorBgValue === "#ffffff" ? "" : "dark"}`}>
+    // <div className={`${figmaColorBgValue === "#ffffff" ? "" : "dark"}`}>
+    <div className="bg-neutral-900 overflow-x-hidden h-full">
       <PluginUI
         code={state.code}
         warnings={state.warnings}
@@ -153,6 +156,7 @@ export default function App() {
         }
         colors={state.colors}
         gradients={state.gradients}
+        urlRequestCallback={handleUrlRequest}
       />
     </div>
   );

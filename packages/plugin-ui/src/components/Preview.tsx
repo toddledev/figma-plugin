@@ -12,9 +12,9 @@ const Preview: React.FC<{
 
   return (
     <div className="flex flex-col w-full">
-      <div className="py-1.5 flex gap-2 w-full text-lg font-medium text-center dark:text-white rounded-lg justify-between">
+      {/* <div className="py-1.5 flex gap-2 w-full text-lg font-medium text-center dark:text-white rounded-lg justify-between">
         <span>Responsive Preview</span>
-      </div>
+      </div> */}
       <div className="flex gap-2 justify-center items-center">
         <div
           className="relative flex flex-col items-center"
