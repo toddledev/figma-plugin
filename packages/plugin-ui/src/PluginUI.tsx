@@ -1,3 +1,4 @@
+import { TODDLE_TUTORIAL_URL, TODDLE_SIGNUP_URL } from "./toddle";
 import copy from "copy-to-clipboard";
 import Preview from "./components/Preview";
 // import GradientsPanel from "./components/GradientsPanel";
@@ -21,6 +22,7 @@ import OrderedListNumber from "./components/OrderedListNumber";
 import LinkIcon from "./components/LinkIcon";
 import Button from "./components/Button";
 import Instruction from "./components/Instruction";
+import { useState } from "react";
 
 type PluginUIProps = {
   code: string;
@@ -40,8 +42,20 @@ type PluginUIProps = {
 export const PluginUI = (props: PluginUIProps) => {
   const { urlRequestCallback, code } = props;
   const isEmpty = code === "";
+  const [wasCodeCopied, setWasCodeCopied] = useState(false);
+  const copyButtonLabel = isEmpty
+    ? "No selection"
+    : wasCodeCopied
+      ? "Copied!"
+      : "Copy Figma design";
 
   const warnings = props.warnings ?? [];
+
+  const handleCopy = () => {
+    copy(code);
+    setWasCodeCopied(true);
+    setTimeout(() => setWasCodeCopied(false), 1000);
+  };
 
   return (
     <div
@@ -55,7 +69,7 @@ export const PluginUI = (props: PluginUIProps) => {
         <div data-svg-wrapper data-layer="logo" className="Logo relative">
           <ToddleLogo />
         </div>
-        <Button onClick={() => urlRequestCallback("https://toddle.dev/signup")}>
+        <Button onClick={() => urlRequestCallback(TODDLE_SIGNUP_URL)}>
           Sign up
         </Button>
       </div>
@@ -74,7 +88,7 @@ export const PluginUI = (props: PluginUIProps) => {
         ))}
         <Button
           icon={LinkIcon}
-          onClick={() => urlRequestCallback("https://youtube.com")}
+          onClick={() => urlRequestCallback(TODDLE_TUTORIAL_URL)}
         >
           Watch tutorial on YouTube
         </Button>
@@ -108,10 +122,15 @@ export const PluginUI = (props: PluginUIProps) => {
       </div>
       <div
         data-layer="footer"
-        className="footer self-stretch h-[114px] p-6 flex-col justify-start items-start gap-2.5 flex"
+        className="footer self-stretch p-6 flex-col justify-start items-start gap-2.5 flex"
       >
-        <Button onClick={() => {}} style="alt">
-          Copy Figma design
+        <Button
+          onClick={handleCopy}
+          style="alt"
+          success={wasCodeCopied}
+          disabled={wasCodeCopied || isEmpty}
+        >
+          {copyButtonLabel}
         </Button>
       </div>
 
