@@ -27,11 +27,11 @@ const CodePanel = (props: CodePanelProps) => {
   const [syntaxHovered, setSyntaxHovered] = useState(false);
   const {
     code,
-    preferenceOptions,
-    selectPreferenceOptions,
-    selectedFramework,
-    settings,
-    onPreferenceChanged,
+    // preferenceOptions,
+    // selectPreferenceOptions,
+    // selectedFramework,
+    // settings,
+    // onPreferenceChanged,
   } = props;
   const isEmpty = code === "";
 

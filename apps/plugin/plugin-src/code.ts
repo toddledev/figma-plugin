@@ -21,7 +21,7 @@ import {
 let userPluginSettings: PluginSettings;
 
 const UI_WIDTH = 384;
-const UI_HEIGHT = 740;
+const UI_HEIGHT = 706;
 
 export const defaultPluginSettings: PluginSettings = {
   framework: "HTML",
