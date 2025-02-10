@@ -27,6 +27,7 @@ export default function Web() {
               colors={[]}
               gradients={[]}
               warnings={testWarnings}
+              urlRequestCallback={(_url: string) => {}}
             />
           </div>
         </div>
@@ -44,6 +45,7 @@ export default function Web() {
               colors={[]}
               gradients={[]}
               warnings={testWarnings}
+              urlRequestCallback={(_url: string) => {}}
             />
           </div>
         </div>
