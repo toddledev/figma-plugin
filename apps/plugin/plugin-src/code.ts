@@ -1,17 +1,5 @@
-// import { tailwindCodeGenTextStyles } from "./../../../packages/backend/src/tailwind/tailwindMain";
-import {
-  run,
-  // flutterMain,
-  // tailwindMain,
-  // swiftuiMain,
-  convertIntoNodes,
-  htmlMain,
-  postSettingsChanged,
-} from "backend";
-// import { retrieveGenericSolidUIColors } from "backend/src/common/retrieveUI/retrieveColors";
-// import { flutterCodeGenTextStyles } from "backend/src/flutter/flutterMain";
+import { run, convertIntoNodes, htmlMain, postSettingsChanged } from "backend";
 import { htmlCodeGenTextStyles } from "backend/src/html/htmlMain";
-// import { swiftUICodeGenTextStyles } from "backend/src/swiftui/swiftuiMain";
 import {
   PluginSettings,
   SettingWillChangeMessage,
@@ -142,112 +130,23 @@ const codegenMode = async () => {
     async ({ language, node }: CodegenEvent): Promise<CodegenResult[]> => {
       const convertedSelection = convertIntoNodes([node], null);
 
-      switch (language) {
-        case "html":
-          return [
-            {
-              title: "Code",
-              code: await htmlMain(
-                convertedSelection,
-                { ...userPluginSettings, jsx: false },
-                true,
-              ),
-              language: "HTML",
-            },
-            {
-              title: `Text Styles`,
-              code: htmlCodeGenTextStyles(userPluginSettings),
-              language: "HTML",
-            },
-          ] as CodegenResult[];
-        // case "html_jsx":
-        //   return [
-        //     {
-        //       title: "Code",
-        //       code: await htmlMain(
-        //         convertedSelection,
-        //         { ...userPluginSettings, jsx: true },
-        //         true,
-        //       ),
-        //       language: "HTML",
-        //     },
-        //     {
-        //       title: "Text Styles",
-        //       code: htmlCodeGenTextStyles(userPluginSettings),
-        //       language: "HTML",
-        //     },
-        //   ];
-        // case "tailwind":
-        // case "tailwind_jsx":
-        //   return [
-        //     {
-        //       title: "Code",
-        //       code: await tailwindMain(convertedSelection, {
-        //         ...userPluginSettings,
-        //         jsx: language === "tailwind_jsx",
-        //       }),
-        //       language: "HTML",
-        //     },
-        //     // {
-        //     //   title: "Style",
-        //     //   code: tailwindMain(convertedSelection, defaultPluginSettings),
-        //     //   language: "HTML",
-        //     // },
-        //     {
-        //       title: "Tailwind Colors",
-        //       code: retrieveGenericSolidUIColors("Tailwind")
-        //         .map((d) => {
-        //           let str = `${d.hex};`;
-        //           if (d.colorName !== d.hex) {
-        //             str += ` // ${d.colorName}`;
-        //           }
-        //           if (d.meta) {
-        //             str += ` (${d.meta})`;
-        //           }
-        //           return str;
-        //         })
-        //         .join("\n"),
-        //       language: "JAVASCRIPT",
-        //     },
-        //     {
-        //       title: "Text Styles",
-        //       code: tailwindCodeGenTextStyles(),
-        //       language: "HTML",
-        //     },
-        //   ];
-        // case "flutter":
-        //   return [
-        //     {
-        //       title: "Code",
-        //       code: flutterMain(convertedSelection, {
-        //         ...userPluginSettings,
-        //         flutterGenerationMode: "snippet",
-        //       }),
-        //       language: "SWIFT",
-        //     },
-        //     {
-        //       title: "Text Styles",
-        //       code: flutterCodeGenTextStyles(),
-        //       language: "SWIFT",
-        //     },
-        //   ];
-        // case "swiftUI":
-        //   return [
-        //     {
-        //       title: "SwiftUI",
-        //       code: swiftuiMain(convertedSelection, {
-        //         ...userPluginSettings,
-        //         swiftUIGenerationMode: "snippet",
-        //       }),
-        //       language: "SWIFT",
-        //     },
-        //     {
-        //       title: "Text Styles",
-        //       code: swiftUICodeGenTextStyles(),
-        //       language: "SWIFT",
-        //     },
-        default:
-          break;
+      if (language === "html") {
+        return [
+          {
+            title: "Code",
+            code: await htmlMain(
+              convertedSelection,
+              { ...userPluginSettings, jsx: false },
+              true,
+            ),
+            language: "HTML",
+          },
+          {
+            title: `Text Styles`,
+            code: htmlCodeGenTextStyles(userPluginSettings),
+            language: "HTML",
+          },
+        ] as CodegenResult[];
       }
 
       const blocks: CodegenResult[] = [];
