@@ -70,7 +70,7 @@ const safeRun = async (settings: PluginSettings) => {
       // hack to make it not immediately set to false when complete. (executes on next frame)
       setTimeout(() => {
         isLoading = false;
-      }, 1);
+      }, 50);
     } catch (e) {
       if (e && typeof e === "object" && "message" in e) {
         const error = e as Error;
